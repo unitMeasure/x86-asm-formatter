@@ -16,6 +16,10 @@
     "onLanguage:asm-intel-x86-generic"
   ],
   "main": "./extension.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unitMeasure/x86-asm-formatter.git"
+  },
   "contributes": {
     "languages": [
       {
