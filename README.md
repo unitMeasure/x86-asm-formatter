@@ -1,5 +1,8 @@
 # x86 Intel ASM Formatter
 
+[![](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/avipars)
+
+
 A lightweight, strict formatter for x86 Intel assembly code in Visual Studio Code. It normalizes indentation, aligns inline comments, and enforces consistent casing for instructions.
 
 ## Features
