@@ -19,7 +19,8 @@
     "assembly",
     "x86",
     "formatter",
-    "asm", "intel",
+    "asm",
+    "intel",
     "assembly-formatting",
     "code-formatter",
     "assembly-code",
@@ -33,6 +34,7 @@
   "sponsor": {
     "url": "https://github.com/sponsors/avipars"
   },
-  "icon": "images/icon_small.png", 
+  "pricing": "Free",
+  "icon": "images/icon_small.png",
   "license": "Apache-2.0"
 }

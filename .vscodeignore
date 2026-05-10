@@ -1,5 +1,5 @@
 **/*.ts
 **/tsconfig.json
-!file.ts
+# !file.ts
 *.vsix
 updater.bat
