@@ -3,3 +3,6 @@
 # !file.ts
 *.vsix
 updater.bat
+images/icon.png 
+.github/**
+.gitignore

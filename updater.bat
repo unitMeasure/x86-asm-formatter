@@ -1,2 +1,2 @@
-vsce package
-vsce publish minor
+@echo off
+vsce package && vsce publish
