@@ -1,0 +1,28 @@
+{
+  "name": "x86-asm-formatter",
+  "displayName": "x86 ASM Formatter",
+  "description": "Formats x86 assembly code, normalizes tabs, and aligns comments.",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Formatters"
+  ],
+  "publisher": "unitMeasure",
+  "activationEvents": [
+    "onLanguage:assembly",
+    "onLanguage:asm",
+    "onLanguage:asm-intel-x86-generic"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "assembly",
+        "aliases": ["Assembly", "asm"],
+        "extensions": [".asm", ".s", ".inc"]
+      }
+    ]
+  }
+}
