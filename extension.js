@@ -50,9 +50,7 @@ function formatAsmLine(line) {
         const currentLength = formattedLine.replace(/\t/g, '    ').length;
         const commentColumn = 40;
         let paddingSpaces = commentColumn - currentLength;
-        
         if (paddingSpaces <= 0) paddingSpaces = 4;
-        
         // Use tabs to bridge the gap to the comment block
         const tabsCount = Math.ceil(paddingSpaces / 4);
         formattedLine += '\t'.repeat(tabsCount > 0 ? tabsCount : 1) + comment;
@@ -70,7 +68,6 @@ function activate(context) {
             for (let i = 0; i < document.lineCount; i++) {
                 const line = document.lineAt(i);
                 const formattedText = formatAsmLine(line.text);
-                
                 // Only create an edit if the line actually needs formatting
                 if (line.text !== formattedText) {
                     edits.push(vscode.TextEdit.replace(line.range, formattedText));
@@ -83,7 +80,7 @@ function activate(context) {
     context.subscriptions.push(provider);
 }
 
-function deactivate() {}
+function deactivate() { }
 
 module.exports = {
     activate,

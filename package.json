@@ -2,7 +2,7 @@
   "name": "x86-asm-formatter",
   "displayName": "x86 Intel ASM Formatter",
   "description": "Formats x86 Intel assembly code, normalizes tabs, and aligns comments.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -15,6 +15,16 @@
     "onLanguage:asm",
     "onLanguage:asm-intel-x86-generic"
   ],
+  "keywords": [
+    "assembly",
+    "x86",
+    "formatter",
+    "asm", "intel",
+    "assembly-formatting",
+    "code-formatter",
+    "assembly-code",
+    "x86-assembly"
+  ],
   "main": "./extension.js",
   "repository": {
     "type": "git",
@@ -23,21 +33,6 @@
   "sponsor": {
     "url": "https://github.com/sponsors/avipars"
   },
-  "icon": "images/icon_small.png",
-  "contributes": {
-    "languages": [
-      {
-        "id": "assembly",
-        "aliases": [
-          "Assembly",
-          "asm"
-        ],
-        "extensions": [
-          ".asm",
-          ".s",
-          ".inc"
-        ]
-      }
-    ]
-  }
+  "icon": "images/icon_small.png", 
+  "license": "Apache-2.0"
 }
