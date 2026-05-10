@@ -2,7 +2,7 @@
   "name": "x86-asm-formatter",
   "displayName": "x86 Intel ASM Formatter",
   "description": "Formats x86 Intel assembly code, normalizes tabs, and aligns comments.",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -13,7 +13,12 @@
   "activationEvents": [
     "onLanguage:assembly",
     "onLanguage:asm",
-    "onLanguage:asm-intel-x86-generic"
+    "onLanguage:asm-intel-x86-generic",
+    "onLanguage:x86",
+    "onLanguage:x86_64",
+    "onLanguage:nasm",
+    "onLanguage:masm",
+    "onLanguage:fasm"
   ],
   "keywords": [
     "assembly",
