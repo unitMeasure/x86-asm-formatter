@@ -162,11 +162,26 @@ function formatAsmLine(line) {
 }
 
 /**
- * Measures the visual length of the code portion of a line (before the sentinel).
- * Tabs count as 4 spaces.
+ * Measures the visual length of a string.
+ * Each tab is counted as tabSize spaces (default 4).
  */
-function visualLength(text) {
-    return text.replace(/\t/g, '    ').length;
+function visualLength(text, tabSize = 4) {
+    return text.replace(/\t/g, ' '.repeat(tabSize)).length;
+}
+
+/**
+ * Produces a padding string of exactly `columns` visual columns using either
+ * spaces only (insertSpaces=true) or a mix of tabs and spaces (insertSpaces=false).
+ */
+function makePadding(columns, insertSpaces, tabSize) {
+    if (columns <= 0) return '';
+    if (insertSpaces) {
+        return ' '.repeat(columns);
+    }
+    // Use as many tabs as possible, then fill the remainder with spaces.
+    const tabCount   = Math.floor(columns / tabSize);
+    const spaceCount = columns % tabSize;
+    return '\t'.repeat(tabCount) + ' '.repeat(spaceCount);
 }
 
 /**
@@ -189,7 +204,9 @@ function visualLength(text) {
  *   - A line whose code part is empty (only whitespace before the sentinel) is
  *     a continuation line. It is padded to the same commentCol as the group.
  */
-function alignCommentGroups(lines) {
+function alignCommentGroups(lines, tabOptions) {
+    const insertSpaces = tabOptions?.insertSpaces ?? true;
+    const tabSize      = tabOptions?.tabSize      ?? 4;
     const MIN_GAP = 1; // minimum spaces between end of code and start of comment
 
     const result = [...lines];
@@ -218,7 +235,7 @@ function alignCommentGroups(lines) {
             const codePart = result[j].slice(0, sentinelIdx);
             if (codePart.trim().length > 0) {
                 hasCodeLines = true;
-                const len = visualLength(codePart);
+                const len = visualLength(codePart, tabSize);
                 if (len > maxCodeLen) maxCodeLen = len;
             }
         }
@@ -230,8 +247,8 @@ function alignCommentGroups(lines) {
             commentCol = 0;
         } else {
             commentCol = maxCodeLen + MIN_GAP;
-            // Round up to the next multiple of 4 for clean alignment.
-            commentCol = Math.ceil(commentCol / 4) * 4;
+            // Round up to the next multiple of tabSize for clean alignment.
+            commentCol = Math.ceil(commentCol / tabSize) * tabSize;
         }
 
         // Rewrite every line in the group.
@@ -239,15 +256,15 @@ function alignCommentGroups(lines) {
             const sentinelIdx = result[j].indexOf('\x00');
             const codePart    = result[j].slice(0, sentinelIdx);
             const comment     = result[j].slice(sentinelIdx + 1);
-            const codeLen     = visualLength(codePart);
+            const codeLen     = visualLength(codePart, tabSize);
 
             let padding;
             if (codePart.trim().length === 0) {
                 // Continuation line: pad from column 0 to commentCol.
-                padding = ' '.repeat(commentCol);
+                padding = makePadding(commentCol, insertSpaces, tabSize);
             } else {
                 const spaces = commentCol - codeLen;
-                padding = ' '.repeat(spaces > 0 ? spaces : MIN_GAP);
+                padding = makePadding(spaces > 0 ? spaces : MIN_GAP, insertSpaces, tabSize);
             }
 
             result[j] = (codePart + padding + comment).trimEnd();
@@ -288,7 +305,7 @@ function activate(context) {
             }
 
             // Pass 2: align comment groups across consecutive commented lines
-            const alignedLines = alignCommentGroups(formattedLines);
+            const alignedLines = alignCommentGroups(formattedLines, options);
 
             // Build edits
             const edits = [];
